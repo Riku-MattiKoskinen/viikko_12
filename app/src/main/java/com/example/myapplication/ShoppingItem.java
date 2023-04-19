@@ -20,10 +20,6 @@ public class ShoppingItem implements Serializable {
         return itemName;
     }
 
-    public void setName(String itemName) {
-        this.itemName = itemName;
-    }
-
     public String getNotes() {
         return itemNotes;
     }
