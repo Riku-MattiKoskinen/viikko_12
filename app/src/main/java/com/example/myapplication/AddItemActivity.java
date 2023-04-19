@@ -3,14 +3,16 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Switch;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.SwitchCompat;
 
 
 public class AddItemActivity extends AppCompatActivity {
     private EditText itemNameEditText, itemNotesEditText;
+    private Switch superImportantSwitch;
     private Button addButton;
-
     private boolean isEditMode = false;
     private int itemPosition;
 
@@ -22,6 +24,7 @@ public class AddItemActivity extends AppCompatActivity {
         itemNameEditText = findViewById(R.id.itemName);
         itemNotesEditText = findViewById(R.id.itemNotes);
         addButton = findViewById(R.id.button);
+        superImportantSwitch = findViewById(R.id.superImportantSwitch);
 
         Intent intent = getIntent();
         if (intent.hasExtra("isEditMode")) {
@@ -33,6 +36,7 @@ public class AddItemActivity extends AppCompatActivity {
                 itemNameEditText.setText(currentItem.itemName);
                 itemNotesEditText.setText(currentItem.itemNotes);
                 addButton.setText("Update Item");
+                superImportantSwitch.setChecked(currentItem.isSuperImportant());
             }
 
         }
@@ -40,12 +44,13 @@ public class AddItemActivity extends AppCompatActivity {
         addButton.setOnClickListener(v -> {
             String itemName = itemNameEditText.getText().toString();
             String itemNotes = itemNotesEditText.getText().toString();
+            boolean superImportant = superImportantSwitch.isChecked();
 
             if (isEditMode) {
-                ShoppingItem updatedItem = new ShoppingItem(itemName, itemNotes);
+                ShoppingItem updatedItem = new ShoppingItem(itemName, itemNotes, superImportant);
                 ItemStorage.getInstance().getItems().set(itemPosition, updatedItem);
             } else {
-                ShoppingItem newItem = new ShoppingItem(itemName, itemNotes);
+                ShoppingItem newItem = new ShoppingItem(itemName, itemNotes, superImportant);
                 ItemStorage.getInstance().addItem(newItem);
             }
 

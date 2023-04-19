@@ -6,12 +6,14 @@ public class ShoppingItem implements Serializable {
     String itemName;
     String itemNotes;
     long timestamp;
+    boolean superImportant;
 
 
-    public ShoppingItem(String itemName, String itemNotes) {
+    public ShoppingItem(String itemName, String itemNotes, boolean superImportant) {
         this.itemName = itemName;
         this.itemNotes = itemNotes;
         this.timestamp = System.currentTimeMillis();
+        this.superImportant = superImportant;
     }
 
     public String getName() {
@@ -26,10 +28,16 @@ public class ShoppingItem implements Serializable {
         return itemNotes;
     }
 
-    public void setNotes(String itemNotes) {
-        this.itemNotes = itemNotes;
-    }
     public long getTimeStamp() {
         return timestamp;
     }
+
+    public boolean isSuperImportant() {
+        return superImportant;
+    }
+
+    public void setSuperImportant(boolean superImportant) {
+        this.superImportant = superImportant;
+    }
+
 }
